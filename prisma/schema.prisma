@@ -14,3 +14,12 @@ model User {
     role      String?
     createdAt DateTime @default(now())
 }
+
+model Product {
+    id          String   @id @default(uuid())
+    name        String
+    description String?
+    price       Float
+    stock       Int
+    createdAt   DateTime @default(now())
+}
