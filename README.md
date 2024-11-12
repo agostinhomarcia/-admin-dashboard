@@ -4,6 +4,37 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 
 ![Projeto](https://admin-dashboard-delta-sand-59.vercel.app)
 
+## 📸 Demonstração do Projeto
+
+### Login
+
+![Login](./public/images/dasb-login.gif)
+
+### Gerenciamento de Usuários
+
+![Usuários](./public/gifs/users-crud.gif)
+_CRUD completo de usuários com confirmação de exclusão_
+
+### Gerenciamento de Produtos
+
+![Produtos](./public/gifs/products-crud.gif)
+_Cadastro e gerenciamento de produtos com validações_
+
+### Layout Responsivo
+
+![Responsivo](./public/gifs/responsive.gif)
+_Interface adaptável para diferentes tamanhos de tela_
+
+### Dashboard Interativo
+
+![Dashboard](./public/gifs/dashboard.gif)
+_Visualização de dados com gráficos interativos_
+
+### Sistema de Navegação
+
+![Navegação](./public/gifs/navigation.gif)
+_Menu lateral colapsável e navegação intuitiva_
+
 ## 🚀 Features
 
 ### Implementadas
@@ -168,29 +199,5 @@ Seu Nome - [Márcia](https://www.linkedin.com/in/marcia-agostinho-developer/)
 - [Vercel](https://vercel.com)
 - [Tailwind CSS](https://tailwindcss.com)
 - [Prisma](https://prisma.io)
-
-## 📸 Demonstração do Projeto
-
-### Login e Autenticação
-
-![Login](./public/images/home.gif)
-_Sistema de login com tema claro/escuro e validação de campos_
-
-### Dashboard
-
-![Dashboard](./public/gifs/dashboard.gif)
-_Visão geral do dashboard com gráficos e métricas_
-
-### Gerenciamento de Produtos
-
-![Produtos](./public/gifs/produtos.gif)
-_CRUD completo de produtos com validações_
-
-### Responsividade
-
-![Responsivo](./public/gifs/responsivo.gif)
-_Interface adaptável para diferentes dispositivos_
-
----
 
 ⭐️ Se este projeto te ajudou, considere dar uma estrela!

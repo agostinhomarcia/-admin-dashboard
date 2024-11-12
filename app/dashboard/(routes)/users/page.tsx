@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash } from "lucide-react";
-import { User } from "@/types/user";
+import { User } from "@/lib/types";
 import { UserModal } from "@/components/users/user-modal";
 import { ConfirmModal } from "@/components/ui/confirm-modal";
 
