@@ -6,7 +6,7 @@ import { ChevronRight } from "lucide-react";
 
 export function Breadcrumbs() {
   const pathname = usePathname();
-  const segments = pathname.split("/").filter(Boolean);
+  const segments = pathname?.split("/").filter(Boolean) || [];
 
   return (
     <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">

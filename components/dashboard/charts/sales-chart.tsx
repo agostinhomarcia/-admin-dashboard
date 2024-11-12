@@ -10,6 +10,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from "chart.js";
 
 ChartJS.register(
@@ -19,7 +20,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
 export function SalesChart() {
@@ -32,6 +34,7 @@ export function SalesChart() {
         borderColor: "rgb(99, 102, 241)",
         backgroundColor: "rgba(99, 102, 241, 0.5)",
         tension: 0.3,
+        fill: true,
       },
     ],
   };
@@ -43,9 +46,14 @@ export function SalesChart() {
         data={data}
         options={{
           responsive: true,
-          interaction: {
-            mode: "index" as const,
-            intersect: false,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  return `Vendas: ${context.raw}`;
+                },
+              },
+            },
           },
           scales: {
             y: {
