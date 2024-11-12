@@ -1,88 +1,50 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { NextResponse } from 'next/server';
+import { Product } from '@/types/product';
+
+let products: Product[] = [
+  {
+    id: '1',
+    name: 'Produto Exemplo 1',
+    price: 99.99,
+    stock: 10,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: '2',
+    name: 'Produto Exemplo 2',
+    price: 149.99,
+    stock: 15,
+    createdAt: new Date().toISOString(),
+  },
+];
 
 export async function GET() {
-  try {
-    const products = await prisma.product.findMany({
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
-
-    return NextResponse.json(products);
-  } catch (error) {
-    console.error("Erro ao buscar produtos:", error);
-    return NextResponse.json(
-      { error: "Erro interno do servidor" },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json(products);
 }
 
 export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    
-    // Validações
-    if (!body.name) {
-      return NextResponse.json(
-        { error: "Nome é obrigatório" },
-        { status: 400 }
-      );
-    }
-
-    if (isNaN(body.price) || body.price < 0) {
-      return NextResponse.json(
-        { error: "Preço inválido" },
-        { status: 400 }
-      );
-    }
-
-    if (isNaN(body.stock) || body.stock < 0) {
-      return NextResponse.json(
-        { error: "Estoque inválido" },
-        { status: 400 }
-      );
-    }
-
-    const product = await prisma.product.create({
-      data: {
-        name: body.name,
-        description: body.description || "",
-        price: parseFloat(body.price),
-        stock: parseInt(body.stock)
-      }
-    });
-
-    return NextResponse.json(product);
-  } catch (error) {
-    console.error("Error creating product:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error", details: error },
-      { status: 500 }
-    );
-  }
+  const body = await request.json();
+  const newProduct: Product = {
+    id: Date.now().toString(),
+    ...body,
+    createdAt: new Date().toISOString(),
+  };
+  
+  products.push(newProduct);
+  return NextResponse.json(newProduct);
 }
 
 export async function PUT(request: Request) {
-  try {
-    const body = await request.json();
-    const product = await prisma.product.update({
-      where: { id: body.id },
-      data: {
-        name: body.name,
-        description: body.description,
-        price: body.price,
-        stock: body.stock
-      }
-    });
-
-    return NextResponse.json(product);
-  } catch (error) {
-    console.error("Error updating product:", error);
+  const body: Product = await request.json();
+  const index = products.findIndex(p => p.id === body.id);
+  
+  if (index === -1) {
     return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
+      { error: 'Produto não encontrado' },
+      { status: 404 }
     );
   }
-} 
+
+  products[index] = { ...products[index], ...body };
+  return NextResponse.json(products[index]);
+}
