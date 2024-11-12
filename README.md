@@ -2,9 +2,7 @@
 
 Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo uma interface intuitiva para gerenciamento de produtos, usuários e configurações do sistema.
 
-![Dashboard Preview](admin-dashboard-delta-sand-59.vercel.app)
-
-![Dashboard Preview](https://github.com/marciaagostinho/admin-dashboard-delta-sand-59/blob/main/public/preview.png)
+![Projeto](https://admin-dashboard-delta-sand-59.vercel.app)
 
 ## 🚀 Features
 
@@ -39,17 +37,78 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 - **Autenticação**: Next-Auth
 - **Gráficos**: Recharts
 - **Ícones**: Lucide Icons
+- **Deploy**: Vercel
 
-## 📦 Estrutura do Projeto
+## 🗄️ Estrutura do Banco de Dados
 
-src/
-├── app/
-│ ├── dashboard/
-│ ├── login/
-│ └── api/
-├── components/
-├── lib/
-└── types/
+### Tabelas
+
+- **User**
+
+  ```prisma
+  model User {
+    id        String   @id @default(uuid())
+    name      String
+    email     String   @unique
+    password  String
+    role      Role     @default(USER)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+  }
+
+  enum Role {
+    USER
+    ADMIN
+  }
+  ```
+
+- **Product**
+
+  ```prisma
+  model Product {
+    id          String   @id @default(uuid())
+    name        String
+    description String
+    price       Decimal
+    stock       Int
+    category    String
+    images      String[]
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+  }
+  ```
+
+- **Order**
+
+  ```prisma
+  model Order {
+    id        String      @id @default(uuid())
+    userId    String
+    user      User        @relation(fields: [userId], references: [id])
+    items     OrderItem[]
+    total     Decimal
+    status    OrderStatus @default(PENDING)
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt
+  }
+
+  model OrderItem {
+    id        String  @id @default(uuid())
+    orderId   String
+    order     Order   @relation(fields: [orderId], references: [id])
+    productId String
+    product   Product @relation(fields: [productId], references: [id])
+    quantity  Int
+    price     Decimal
+  }
+
+  enum OrderStatus {
+    PENDING
+    PROCESSING
+    COMPLETED
+    CANCELLED
+  }
+  ```
 
 ## 🚀 Como Executar
 
@@ -71,7 +130,15 @@ npm install
 cp .env.example .env.local
 ```
 
-4. Execute as migrações do banco de dados
+Adicione as seguintes variáveis ao seu .env.local:
+
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
+NEXTAUTH_SECRET=sua_chave_secreta
+NEXTAUTH_URL=http://localhost:3000
+```
+
+4. Execute as migrações do Prisma
 
 ```bash
 npx prisma migrate dev
@@ -82,6 +149,36 @@ npx prisma migrate dev
 ```bash
 npm run dev
 ```
+
+## 💾 Backup e Restauração do Banco de Dados
+
+### Backup
+
+```bash
+pg_dump -U seu_usuario nome_do_banco > backup.sql
+```
+
+### Restauração
+
+```bash
+psql -U seu_usuario nome_do_banco < backup.sql
+```
+
+## 🔐 Segurança do Banco de Dados
+
+- Todas as senhas são hasheadas usando bcrypt
+- Conexões são feitas através de SSL/TLS
+- Implementado rate limiting nas APIs
+- Validação de dados com Zod
+- Queries seguras através do Prisma ORM
+- Proteção contra SQL injection
+
+## 📊 Índices e Performance
+
+- Índices automáticos em chaves primárias e estrangeiras
+- Índices únicos em campos como email
+- Relacionamentos otimizados através do Prisma
+- Queries eficientes com select específico de campos
 
 ## 🔐 Credenciais de Teste
 
