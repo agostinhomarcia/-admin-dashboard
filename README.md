@@ -43,70 +43,27 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 
 ### Tabelas
 
-- **User**
-
-  ```prisma
-  model User {
-    id        String   @id @default(uuid())
-    name      String
-    email     String   @unique
-    password  String
-    role      Role     @default(USER)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-  }
-
-  enum Role {
-    USER
-    ADMIN
-  }
-  ```
-
 - **Product**
 
   ```prisma
   model Product {
-    id          String   @id @default(uuid())
-    name        String
-    description String
-    price       Decimal
-    stock       Int
-    category    String
-    images      String[]
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+      id        String   @id @default(cuid())
+      name      String
+      price     Float
+      stock     Int
+      createdAt DateTime @default(now())
+      updatedAt DateTime @updatedAt
   }
   ```
 
-- **Order**
-
+- **User**
   ```prisma
-  model Order {
-    id        String      @id @default(uuid())
-    userId    String
-    user      User        @relation(fields: [userId], references: [id])
-    items     OrderItem[]
-    total     Decimal
-    status    OrderStatus @default(PENDING)
-    createdAt DateTime    @default(now())
-    updatedAt DateTime    @updatedAt
-  }
-
-  model OrderItem {
-    id        String  @id @default(uuid())
-    orderId   String
-    order     Order   @relation(fields: [orderId], references: [id])
-    productId String
-    product   Product @relation(fields: [productId], references: [id])
-    quantity  Int
-    price     Decimal
-  }
-
-  enum OrderStatus {
-    PENDING
-    PROCESSING
-    COMPLETED
-    CANCELLED
+  model User {
+      id        String   @id @default(cuid())
+      name      String
+      email     String   @unique
+      createdAt DateTime @default(now())
+      updatedAt DateTime @updatedAt
   }
   ```
 
