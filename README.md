@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sistema de Gestão Empresarial
 
-## Getting Started
+Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo uma interface intuitiva para gerenciamento de produtos, usuários e configurações do sistema.
 
-First, run the development server:
+![Dashboard Preview](link-para-screenshot-do-dashboard)
+
+## 🚀 Features
+
+### Implementadas
+
+- ✅ Autenticação de usuários (Login/Logout)
+- ✅ Dashboard com gráficos e métricas
+- ✅ Gerenciamento de produtos
+- ✅ Sistema de temas (Claro/Escuro)
+- ✅ Layout responsivo
+- ✅ Proteção de rotas
+
+### Futuras
+
+- 📋 Sistema de notificações em tempo real
+- 📊 Relatórios exportáveis (PDF, Excel)
+- 👥 Gerenciamento de permissões de usuários
+- 🔄 Sincronização offline
+- 📨 Sistema de emails automatizados
+- 🔍 Busca avançada
+- 📦 Controle de estoque
+- 💰 Gestão financeira
+- 📈 Análise de dados avançada
+
+## 🛠 Tecnologias Utilizadas
+
+- **Framework**: Next.js 14
+- **Linguagem**: TypeScript
+- **Estilização**: Tailwind CSS
+- **Banco de Dados**: PostgreSQL
+- **ORM**: Prisma
+- **Autenticação**: Next-Auth
+- **Gráficos**: Recharts
+- **Ícones**: Lucide Icons
+
+## 📦 Estrutura do Projeto
+
+src/
+├── app/
+│ ├── dashboard/
+│ ├── login/
+│ └── api/
+├── components/
+├── lib/
+└── types/
+
+## 🚀 Como Executar
+
+1. Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/nome-do-projeto.git
+```
+
+2. Instale as dependências
+
+```bash
+npm install
+```
+
+3. Configure as variáveis de ambiente
+
+```bash
+cp .env.example .env.local
+```
+
+4. Execute as migrações do banco de dados
+
+```bash
+npx prisma migrate dev
+```
+
+5. Inicie o servidor de desenvolvimento
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔐 Credenciais de Teste
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Usuário**: admin
+- **Senha**: admin123
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📱 Responsividade
 
-## Learn More
+O sistema é totalmente responsivo e se adapta aos seguintes breakpoints:
 
-To learn more about Next.js, take a look at the following resources:
+- Mobile: 360px+
+- Tablet: 768px+
+- Desktop: 1024px+
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 Contribuindo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
-## Deploy on Vercel
+## 👨‍💻 Autor
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Seu Nome - [Márcia](https://www.linkedin.com/in/marcia-agostinho-developer/)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🙏 Agradecimentos
+
+- [Next.js](https://nextjs.org)
+- [Vercel](https://vercel.com)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Prisma](https://prisma.io)
+
+---
+
+⭐️ Se este projeto te ajudou, considere dar uma estrela!
