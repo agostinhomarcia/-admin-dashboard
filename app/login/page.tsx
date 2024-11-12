@@ -64,6 +64,7 @@ export default function LoginPage() {
             <input
               type="text"
               name="username"
+              placeholder="admin"
               className="w-full p-2 border rounded"
               required
               disabled={loading}
@@ -77,6 +78,7 @@ export default function LoginPage() {
             <input
               type="password"
               name="password"
+              placeholder="admin123"
               className="w-full p-2 border rounded"
               required
               disabled={loading}
