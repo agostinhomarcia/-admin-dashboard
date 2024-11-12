@@ -1,30 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import { Plus, Pencil, Trash } from "lucide-react";
-import { UserModal } from "@/components/users/user-modal";
-import { User } from "@/types/user";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { Plus, Pencil, Trash } from "lucide-react";
+import { User } from "@/types/user";
+import { UserModal } from "@/components/users/user-modal";
+import { ConfirmModal } from "@/components/ui/confirm-modal";
 
 export default function UsersPage() {
-  const [users, setUsers] = useState<User[]>([
-    {
-      id: "1",
-      name: "John Doe",
-      email: "john@example.com",
-      role: "Admin",
-      createdAt: "2024-01-01",
-    },
-    {
-      id: "2",
-      name: "Jane Smith",
-      email: "jane@example.com",
-      role: "User",
-      createdAt: "2024-01-02",
-    },
-  ]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | undefined>();
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch("/api/users");
+      if (!response.ok) {
+        throw new Error("Failed to fetch users");
+      }
+      const data = await response.json();
+      setUsers(data);
+    } catch {
+      toast.error("Erro ao carregar usuários");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleOpenModal = (user?: User) => {
     setSelectedUser(user);
@@ -36,43 +44,60 @@ export default function UsersPage() {
     setIsModalOpen(false);
   };
 
-  const handleSubmit = (data: User) => {
-    const emailExists = users.some(
-      (user) => user.email === data.email && user.id !== data.id
-    );
-
-    if (emailExists) {
-      toast.error("Este email já está em uso por outro usuário.");
-      return;
-    }
-
-    if (selectedUser) {
-      setUsers(
-        users.map((user) =>
-          user.id === selectedUser.id ? { ...user, ...data } : user
-        )
+  const handleSubmit = async (data: User) => {
+    try {
+      const emailExists = users.some(
+        (user) => user.email === data.email && user.id !== data.id
       );
-      toast.success("Usuário atualizado com sucesso!");
-    } else {
-      setUsers([
-        ...users,
-        {
-          ...data,
-          id: String(Date.now()),
-          createdAt: new Date().toISOString().split("T")[0],
+
+      if (emailExists) {
+        toast.error("Este email já está em uso");
+        return;
+      }
+
+      const response = await fetch("/api/users", {
+        method: data.id ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      ]);
-      toast.success("Usuário criado com sucesso!");
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error("Erro ao salvar usuário");
+
+      await fetchUsers();
+      toast.success("Usuário salvo com sucesso!");
+      handleCloseModal();
+    } catch {
+      toast.error("Erro ao salvar usuário");
     }
-    handleCloseModal();
   };
 
-  const handleDelete = (userId: string) => {
-    if (window.confirm("Tem certeza que deseja excluir este usuário?")) {
-      setUsers(users.filter((user) => user.id !== userId));
+  const handleDeleteClick = (userId: string) => {
+    setUserToDelete(userId);
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!userToDelete) return;
+
+    try {
+      const response = await fetch(`/api/users/${userToDelete}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) throw new Error("Erro ao excluir usuário");
+
+      await fetchUsers();
       toast.success("Usuário excluído com sucesso!");
+    } catch {
+      toast.error("Erro ao excluir usuário");
     }
   };
+
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <div className="space-y-6">
@@ -107,7 +132,9 @@ export default function UsersPage() {
                 <td className="p-4">{user.name}</td>
                 <td className="p-4">{user.email}</td>
                 <td className="p-4">{user.role}</td>
-                <td className="p-4">{user.createdAt}</td>
+                <td className="p-4">
+                  {new Date(user.createdAt).toLocaleDateString()}
+                </td>
                 <td className="p-4">
                   <div className="flex items-center justify-end gap-2">
                     <button
@@ -117,7 +144,7 @@ export default function UsersPage() {
                       <Pencil className="h-4 w-4" />
                     </button>
                     <button
-                      onClick={() => handleDelete(user.id)}
+                      onClick={() => handleDeleteClick(user.id)}
                       className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md text-red-500"
                     >
                       <Trash className="h-4 w-4" />
@@ -135,6 +162,14 @@ export default function UsersPage() {
         onClose={handleCloseModal}
         onSubmit={handleSubmit}
         user={selectedUser}
+      />
+
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={() => setIsConfirmModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title="Excluir Usuário"
+        message="Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita."
       />
     </div>
   );
