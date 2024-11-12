@@ -1,35 +1,24 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
-export async function GET() {
-  const users = await prisma.user.findMany()
-  return NextResponse.json(users)
-}
-
-export async function POST(request: Request) {
-  const data = await request.json()
-  const user = await prisma.user.create({
-    data: {
-      name: data.name,
-      email: data.email,
-    },
-  })
-  return NextResponse.json(user)
-}
-
-export async function PUT(
+export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const data = await request.json()
-  const user = await prisma.user.update({
-    where: { id: params.id },
-    data: {
-      name: data.name,
-      email: data.email,
-    },
-  })
-  return NextResponse.json(user)
+  const user = await prisma.user.findUnique({
+    where: {
+      id: params.id
+    }
+  });
+
+  if (!user) {
+    return NextResponse.json(
+      { error: 'Usuário não encontrado' },
+      { status: 404 }
+    );
+  }
+
+  return NextResponse.json(user);
 }
 
 export async function DELETE(
@@ -38,14 +27,14 @@ export async function DELETE(
 ) {
   try {
     await prisma.user.delete({
-      where: { id: params.id }
+      where: {
+        id: params.id
+      }
     });
-
-    return NextResponse.json({ message: "User deleted successfully" });
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error deleting user:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: 'Erro ao excluir usuário' },
       { status: 500 }
     );
   }
