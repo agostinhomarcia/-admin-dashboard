@@ -2,7 +2,9 @@
 
 Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo uma interface intuitiva para gerenciamento de produtos, usuários e configurações do sistema.
 
-![Dashboard Preview](link-para-screenshot-do-dashboard)
+![Dashboard Preview](admin-dashboard-delta-sand-59.vercel.app)
+
+![Dashboard Preview](https://github.com/marciaagostinho/admin-dashboard-delta-sand-59/blob/main/public/preview.png)
 
 ## 🚀 Features
 
