@@ -15,34 +15,30 @@ export default function LoginPage() {
 
     const formData = new FormData(e.currentTarget);
 
-    try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: formData.get("username"),
-          password: formData.get("password"),
-        }),
-      });
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: formData.get("username"),
+        password: formData.get("password"),
+      }),
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (response.ok) {
-        localStorage.setItem("isAuthenticated", "true");
-        setTimeout(() => {
-          router.push("/dashboard");
-          router.refresh();
-        }, 100);
-      } else {
-        setError(data.error || "Erro ao fazer login");
-      }
-    } catch (err) {
-      setError("Erro ao tentar fazer login");
-    } finally {
-      setLoading(false);
+    if (response.ok) {
+      localStorage.setItem("isAuthenticated", "true");
+      setTimeout(() => {
+        router.push("/dashboard");
+        router.refresh();
+      }, 100);
+    } else {
+      setError(data.error || "Erro ao fazer login");
     }
+
+    setLoading(false);
   };
 
   return (
