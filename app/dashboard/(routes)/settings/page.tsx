@@ -1,9 +1,73 @@
 "use client";
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SettingsPage() {
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [backupLoading, setBackupLoading] = useState(false);
+  const [lastBackupDate, setLastBackupDate] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    companyName: "",
+    email: "",
+  });
+
+  // Função para validar email
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  // Função para formatar a data
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
+  };
+
+  // Função para lidar com o backup
+  const handleBackup = async () => {
+    setBackupLoading(true);
+    try {
+      // Simular processo de backup
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const currentDate = new Date();
+      setLastBackupDate(formatDate(currentDate));
+      toast.success("Backup realizado com sucesso!");
+    } catch (error) {
+      toast.error("Erro ao realizar backup");
+    } finally {
+      setBackupLoading(false);
+    }
+  };
+
+  // Função para salvar as alterações
+  const handleSave = () => {
+    if (!formData.companyName.trim()) {
+      toast.error("Nome da empresa é obrigatório");
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      toast.error("Email é obrigatório");
+      return;
+    }
+
+    if (!isValidEmail(formData.email)) {
+      toast.error("Email inválido");
+      return;
+    }
+
+    setLoading(true);
+    // Simular salvamento
+    setTimeout(() => {
+      toast.success("Configurações salvas com sucesso!");
+      setLoading(false);
+    }, 1000);
+  };
 
   return (
     <div className="space-y-6">
@@ -15,7 +79,6 @@ export default function SettingsPage() {
       </div>
 
       <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800">
-        {/* Configurações Gerais */}
         <div className="p-6 border-b border-zinc-200 dark:border-zinc-800">
           <h2 className="text-xl font-semibold mb-4">Configurações Gerais</h2>
           <form className="space-y-4">
@@ -27,6 +90,10 @@ export default function SettingsPage() {
                 type="text"
                 className="w-full p-2 border rounded-md"
                 placeholder="Nome da sua empresa"
+                value={formData.companyName}
+                onChange={(e) =>
+                  setFormData({ ...formData, companyName: e.target.value })
+                }
               />
             </div>
             <div>
@@ -37,12 +104,15 @@ export default function SettingsPage() {
                 type="email"
                 className="w-full p-2 border rounded-md"
                 placeholder="contato@empresa.com"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
               />
             </div>
           </form>
         </div>
 
-        {/* Configurações de Notificações */}
         <div className="p-6 border-b border-zinc-200 dark:border-zinc-800">
           <h2 className="text-xl font-semibold mb-4">Notificações</h2>
           <div className="space-y-4">
@@ -73,35 +143,36 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Configurações de Backup */}
         <div className="p-6 border-b border-zinc-200 dark:border-zinc-800">
           <h2 className="text-xl font-semibold mb-4">Backup e Restauração</h2>
           <div className="space-y-4">
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-              onClick={() => alert("Backup iniciado")}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:opacity-50"
+              onClick={handleBackup}
+              disabled={backupLoading}
             >
-              Fazer Backup
+              {backupLoading ? "Realizando backup..." : "Fazer Backup"}
             </button>
             <div>
-              <p className="text-sm text-zinc-500 mt-2">Último backup: Nunca</p>
+              <p className="text-sm text-zinc-500 mt-2">
+                Último backup: {lastBackupDate || "Nunca"}
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Botões de Ação */}
       <div className="flex justify-end space-x-4">
         <button
           className="px-4 py-2 border rounded-md hover:bg-gray-100 dark:hover:bg-zinc-800"
-          onClick={() => alert("Alterações canceladas")}
+          onClick={() => toast.error("Alterações canceladas")}
         >
           Cancelar
         </button>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-          onClick={() => alert("Configurações salvas")}
-          disabled={loading}
+          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
+          onClick={handleSave}
+          disabled={loading || !formData.companyName || !formData.email}
         >
           {loading ? "Salvando..." : "Salvar Alterações"}
         </button>
