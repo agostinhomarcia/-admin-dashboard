@@ -15,7 +15,7 @@ interface UserModalProps {
 const initialFormData = {
   name: "",
   email: "",
-  role: "user",
+  role: "user" as const,
 };
 
 export function UserModal({ isOpen, onClose, onSubmit, user }: UserModalProps) {
@@ -35,23 +35,34 @@ export function UserModal({ isOpen, onClose, onSubmit, user }: UserModalProps) {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    console.log("Dados sendo enviados do modal:", formData);
 
-    if (!formData.name || !formData.email || !formData.role) {
-      toast.error("Por favor, preencha todos os campos");
-      return;
+    try {
+      const response = await fetch("/api/users", {
+        method: user ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: user?.id,
+          name: formData.name,
+          email: formData.email,
+          role: formData.role,
+        }),
+      });
+
+      const data = await response.json();
+      console.log("Resposta da API:", data);
+
+      if (!response.ok) throw new Error(data.error);
+
+      onSubmit(data);
+      onClose();
+    } catch (error) {
+      console.error("Erro ao salvar:", error);
+      toast.error("Erro ao salvar usuário");
     }
-
-    onSubmit({
-      id: user?.id || "",
-      name: formData.name,
-      email: formData.email,
-      role: formData.role,
-      createdAt: user?.createdAt || new Date().toISOString().split("T")[0],
-    });
-
-    setFormData(initialFormData);
   };
 
   const handleClose = () => {
@@ -103,14 +114,19 @@ export function UserModal({ isOpen, onClose, onSubmit, user }: UserModalProps) {
             <div>
               <label className="block text-sm font-medium mb-1">Função</label>
               <select
-                className="w-full p-2 rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900"
                 value={formData.role}
                 onChange={(e) =>
-                  setFormData({ ...formData, role: e.target.value })
+                  setFormData({
+                    ...formData,
+                    role: e.target.value as "admin" | "user",
+                  })
                 }
-                required
+                className="w-full p-2 border rounded-md bg-white"
               >
-                <option value="admin">Admin</option>
+                <option value="" disabled>
+                  Selecione uma função
+                </option>
+                <option value="admin">Administrador</option>
                 <option value="user">Usuário</option>
               </select>
             </div>

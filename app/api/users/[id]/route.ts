@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 export async function GET(
   request: Request,
@@ -7,13 +7,13 @@ export async function GET(
 ) {
   const user = await prisma.user.findUnique({
     where: {
-      id: params.id
-    }
+      id: params.id,
+    },
   });
 
   if (!user) {
     return NextResponse.json(
-      { error: 'Usuário não encontrado' },
+      { error: "Usuário não encontrado" },
       { status: 404 }
     );
   }
@@ -28,14 +28,14 @@ export async function DELETE(
   try {
     await prisma.user.delete({
       where: {
-        id: params.id
-      }
+        id: params.id,
+      },
     });
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ message: "Usuário excluído com sucesso" });
   } catch (error) {
     return NextResponse.json(
-      { error: 'Erro ao excluir usuário' },
+      { error: "Erro ao excluir usuário" },
       { status: 500 }
     );
   }
-} 
+}
