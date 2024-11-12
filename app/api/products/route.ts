@@ -1,50 +1,52 @@
 import { NextResponse } from 'next/server';
-import { Product } from '@/types/product';
-
-let products: Product[] = [
-  {
-    id: '1',
-    name: 'Produto Exemplo 1',
-    price: 99.99,
-    stock: 10,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    name: 'Produto Exemplo 2',
-    price: 149.99,
-    stock: 15,
-    createdAt: new Date().toISOString(),
-  },
-];
+import { prisma } from '@/lib/prisma';
 
 export async function GET() {
+  const products = await prisma.product.findMany({
+    orderBy: {
+      createdAt: 'desc'
+    }
+  });
   return NextResponse.json(products);
 }
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const newProduct: Product = {
-    id: Date.now().toString(),
-    ...body,
-    createdAt: new Date().toISOString(),
-  };
-  
-  products.push(newProduct);
-  return NextResponse.json(newProduct);
+  const product = await prisma.product.create({
+    data: {
+      name: body.name,
+      price: body.price,
+      stock: body.stock,
+    }
+  });
+  return NextResponse.json(product);
 }
 
 export async function PUT(request: Request) {
-  const body: Product = await request.json();
-  const index = products.findIndex(p => p.id === body.id);
-  
-  if (index === -1) {
+  const body = await request.json();
+  const product = await prisma.product.findUnique({
+    where: {
+      id: body.id
+    }
+  });
+
+  if (!product) {
     return NextResponse.json(
       { error: 'Produto não encontrado' },
       { status: 404 }
     );
   }
 
-  products[index] = { ...products[index], ...body };
-  return NextResponse.json(products[index]);
+  const updatedProduct = await prisma.product.update({
+    where: {
+      id: body.id
+    },
+    data: {
+      name: body.name,
+      price: body.price,
+      stock: body.stock,
+    }
+  });
+
+  return NextResponse.json(updatedProduct);
 }
