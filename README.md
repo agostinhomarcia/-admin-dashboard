@@ -169,6 +169,28 @@ Seu Nome - [Márcia](https://www.linkedin.com/in/marcia-agostinho-developer/)
 - [Tailwind CSS](https://tailwindcss.com)
 - [Prisma](https://prisma.io)
 
+## 📸 Demonstração do Projeto
+
+### Login e Autenticação
+
+![Login](./public/images/home.gif)
+_Sistema de login com tema claro/escuro e validação de campos_
+
+### Dashboard
+
+![Dashboard](./public/gifs/dashboard.gif)
+_Visão geral do dashboard com gráficos e métricas_
+
+### Gerenciamento de Produtos
+
+![Produtos](./public/gifs/produtos.gif)
+_CRUD completo de produtos com validações_
+
+### Responsividade
+
+![Responsivo](./public/gifs/responsivo.gif)
+_Interface adaptável para diferentes dispositivos_
+
 ---
 
 ⭐️ Se este projeto te ajudou, considere dar uma estrela!
