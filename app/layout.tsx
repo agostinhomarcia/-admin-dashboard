@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { MobileWarning } from "@/components/mobile-warning";
+import { Sidebar } from "@/components/layout/sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="pt-BR">
+      <body className="bg-zinc-50 dark:bg-zinc-900">
         {children} <Toaster />
       </body>
     </html>
