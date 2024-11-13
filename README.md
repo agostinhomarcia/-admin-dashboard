@@ -2,6 +2,35 @@
 
 Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo uma interface intuitiva para gerenciamento de produtos, usuários e configurações do sistema.
 
+## 🏗️ Arquitetura
+
+### Frontend
+
+- Interface construída com React e Next.js 14
+- Estilização com Tailwind CSS
+- Componentes interativos
+- Gráficos com Recharts
+- Ícones com Lucide Icons
+
+### Backend (API Routes Next.js)
+
+- API Routes para endpoints do servidor
+- Autenticação e autorização com NextAuth.js
+- Integração com PostgreSQL via Prisma ORM
+- Validação de dados com Zod
+- Endpoints principais:
+  - `/api/login`: Autenticação de usuários
+  - `/api/products`: Gerenciamento de produtos
+  - `/api/users`: Gerenciamento de usuários
+
+### Segurança
+
+- Proteção de rotas
+- Validação de dados no servidor
+- Sanitização de inputs
+- Tokens JWT para autenticação
+- Queries seguras com Prisma
+
 🔗 [Ver Projeto](https://admin-dashboard-delta-sand-59.vercel.app/)
 
 ## 📸 Demonstração do Projeto
