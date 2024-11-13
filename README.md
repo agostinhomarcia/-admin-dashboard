@@ -13,27 +13,14 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 ### Gerenciamento de Usuários
 
 ![Usuários](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmZqcWV3dGp6ajBwbGNzOHQ5Nm4zM2FrbjcxOWQ3anpwMmU5YjZsOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TXWdLSfRDS2rKTPDAI/giphy.gif)
-_CRUD completo de usuários com confirmação de exclusão_
 
 ### Gerenciamento de Produtos
 
-![Produtos](https://imgur.com/seu-link-aqui.gif)
-_Cadastro e gerenciamento de produtos com validações_
+![Produtos](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGdlZW5kN3ZzOGhrdHJlbWwydjdzenByeDVzaW4zZ3YxeHp4Y24yNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qhRsqthaKtYgRSjYIM/giphy.gif)
 
-### Layout Responsivo
+### Configurações
 
-![Responsivo](https://imgur.com/seu-link-aqui.gif)
-_Interface adaptável para diferentes tamanhos de tela_
-
-### Dashboard Interativo
-
-![Dashboard](https://imgur.com/seu-link-aqui.gif)
-_Visualização de dados com gráficos interativos_
-
-### Sistema de Navegação
-
-![Navegação](https://imgur.com/seu-link-aqui.gif)
-_Menu lateral colapsável e navegação intuitiva_
+![Configurações](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHNldmtuc2ZhenhnbG1icHh0eGNubXlyZmFncW9hMWtmbWRvaGtteiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bjz4Bbko3uLNuAwb0N/giphy.gif)
 
 ## 🚀 Features
 
