@@ -37,15 +37,15 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 
 ### Login/Dashboard
 
-![Tema](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXg3NTd6enY0a2Q4cjU1bXNyd29lMjM5dG90bXc4Ynhta25qOGZ0YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/eYePax7MsSAiUt8tkn/giphy.gif)
+![Tema](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGdqZnU3c3pvcWp1OXB0MWU1dW9sOTNyaHRhM3FwcjhjZTJld25kaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a4jy4alkWns7SlugBf/giphy.gif)
 
 ### Gerenciamento de Usuários
 
-![Usuários](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmZqcWV3dGp6ajBwbGNzOHQ5Nm4zM2FrbjcxOWQ3anpwMmU5YjZsOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TXWdLSfRDS2rKTPDAI/giphy.gif)
+![Usuários](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3lrOGR5NWRndXNtdHE5eWE3azVmOXY4dmkycXFhbHhpZXNhamdiciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ewogbzxIGhXH8IrqPt/giphy.gif)
 
 ### Gerenciamento de Produtos
 
-![Produtos](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGdlZW5kN3ZzOGhrdHJlbWwydjdzenByeDVzaW4zZ3YxeHp4Y24yNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qhRsqthaKtYgRSjYIM/giphy.gif)
+![Produtos](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3lrOGR5NWRndXNtdHE5eWE3azVmOXY4dmkycXFhbHhpZXNhamdiciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ewogbzxIGhXH8IrqPt/giphy.gif)
 
 ### Configurações
 
