@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -43,99 +44,195 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-md w-full max-w-[400px] mx-auto">
-        <h1 className="text-xl sm:text-2xl font-bold mb-6 text-center">
-          Login
-        </h1>
+    <div className="min-h-screen flex flex-col md:flex-row">
+      <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-blue-600 to-blue-700 text-white p-12 flex-col justify-between relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/2 translate-y-1/2" />
+        </div>
 
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 sm:px-4 sm:py-3 rounded mb-4 text-sm sm:text-base">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Usuário
-            </label>
-            <input
-              type="text"
-              name="username"
-              placeholder="admin"
-              className="w-full p-2 sm:p-3 border rounded text-sm sm:text-base"
-              required
-              disabled={loading}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Senha
-            </label>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="admin123"
-                className="w-full p-2 sm:p-3 border rounded text-sm sm:text-base"
-                required
-                disabled={loading}
-              />
-              <button
-                type="button"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                onClick={() => setShowPassword(!showPassword)}
+        <div className="relative space-y-6">
+          <div className="mb-12">
+            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-6">
+              <svg
+                className="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                {showPassword ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+            </div>
+            <h1 className="text-4xl font-bold mb-4">Bem-vindo!</h1>
+            <p className="text-blue-100 text-lg">
+              Acesse o painel administrativo para gerenciar seus produtos e
+              vendas.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="font-semibold text-xl mb-4">
+              Recursos disponíveis:
+            </h2>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-4 h-4"
                     fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5"
+                    viewBox="0 0 24 24"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
                     />
                   </svg>
-                ) : (
+                </div>
+                <span>Gestão completa de produtos</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-4 h-4"
                     fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5"
+                    viewBox="0 0 24 24"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
                     />
+                  </svg>
+                </div>
+                <span>Controle de estoque em tempo real</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
                     />
                   </svg>
-                )}
-              </button>
+                </div>
+                <span>Relatórios e análises avançadas</span>
+              </div>
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white p-2 sm:p-3 rounded hover:bg-blue-600 disabled:bg-blue-300 text-sm sm:text-base"
-            disabled={loading}
-          >
-            {loading ? "Entrando..." : "Entrar"}
-          </button>
-        </form>
+          <div className="mt-8 p-4 bg-white/10 rounded-lg">
+            <h3 className="font-medium mb-2">Precisa de ajuda?</h3>
+            <p className="text-sm text-blue-100">
+              Entre em contato com nosso suporte:
+              <br />
+              suporte@empresa.com
+            </p>
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="flex items-center justify-between text-sm text-blue-200">
+            <span>© 2024 Sua Empresa</span>
+            <div className="flex gap-4">
+              <a href="#" className="hover:text-white transition-colors">
+                Termos
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                Privacidade
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 flex items-center justify-center p-8">
+        <div className="w-full max-w-[400px] space-y-6">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold">Login</h2>
+            <p className="text-zinc-500 mt-2">
+              Entre com suas credenciais para continuar
+            </p>
+          </div>
+
+          {error && (
+            <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+              <p className="text-red-700 text-sm">{error}</p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-1.5">
+                Usuário
+              </label>
+              <input
+                type="text"
+                name="username"
+                placeholder="admin"
+                className="w-full px-3 py-2 rounded-lg border border-zinc-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                required
+                disabled={loading}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1.5">Senha</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="admin123"
+                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  required
+                  disabled={loading}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? (
+                <>
+                  <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Entrando...</span>
+                </>
+              ) : (
+                "Entrar"
+              )}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

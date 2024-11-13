@@ -49,7 +49,7 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 
 ### Configurações
 
-![Configurações](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHNldmtuc2ZhenhnbG1icHh0eGNubXlyZmFncW9hMWtmbWRvaGtteiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bjz4Bbko3uLNuAwb0N/giphy.gif)
+![Configurações](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzQyeHE1NnN6OWtzNjJ5dGg4dHExZ3JncHFpcjQzMzVxZGd0NXVuayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/s9FijT0zMpJu5vDLAg/giphy.gif)
 
 ## 🚀 Features
 
