@@ -39,76 +39,79 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto p-6 space-y-8">
-      {/* Header */}
+    <div className="h-[calc(100vh-80px)] p-4 flex flex-col gap-4">
+      {/* Header - Mais compacto */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-zinc-500 mt-1">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <p className="text-sm text-zinc-500">
             Acompanhe seus principais indicadores
           </p>
         </div>
 
-        {/* Filtros */}
-        <div className="flex gap-3">
+        <div className="flex gap-2">
           <select
-            className="px-3 py-2 border rounded-md text-sm dark:bg-zinc-800"
+            className="px-2 py-1 text-sm border rounded-md dark:bg-zinc-800"
             onChange={(e) => setTimeRange(e.target.value)}
             value={timeRange}
           >
-            <option value="7">Última semana</option>
-            <option value="30">Último mês</option>
-            <option value="90">Últimos 3 meses</option>
-            <option value="180">Últimos 6 meses</option>
-            <option value="365">Último ano</option>
+            <option value="7">7 dias</option>
+            <option value="30">30 dias</option>
+            <option value="90">3 meses</option>
           </select>
 
           <button
             onClick={() => setCompareMode(!compareMode)}
-            className={`px-3 py-2 text-sm border rounded-md ${
+            className={`px-2 py-1 text-sm border rounded-md ${
               compareMode ? "bg-zinc-100 dark:bg-zinc-800" : ""
             }`}
           >
-            Comparar Períodos
+            Comparar
           </button>
         </div>
       </div>
 
-      {/* Cards principais - 4 colunas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-sm">
-          <span className="text-sm text-zinc-500">Vendas Hoje</span>
-          <h3 className="text-2xl font-bold mt-1">R$ 12.589,00</h3>
-          <span className="text-sm text-green-500">+15% vs ontem</span>
-        </div>
-        {/* Mais 3 cards similares */}
-      </div>
-
-      {/* Gráficos principais */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-sm">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-lg font-semibold">Vendas Mensais</h2>
-              <p className="text-sm text-zinc-500">
-                Comparativo dos últimos 6 meses
-              </p>
-            </div>
-            {/* Legenda do gráfico */}
+      {/* Grid principal - Usando grid-rows para controle vertical */}
+      <div className="flex-1 grid grid-rows-[auto_1fr] gap-4">
+        {/* Cards em uma única linha */}
+        <div className="grid grid-cols-4 gap-4">
+          <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg">
+            <span className="text-sm text-zinc-500">Vendas Hoje</span>
+            <h3 className="text-xl font-bold">R$ 12.589,00</h3>
+            <span className="text-sm text-green-500">+15% vs ontem</span>
           </div>
-          <SalesChart data={salesData} />
+          {/* ... outros cards ... */}
         </div>
 
-        <div className="bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-sm">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-lg font-semibold">Usuários Ativos</h2>
-              <p className="text-sm text-zinc-500">
-                Crescimento mensal de usuários
-              </p>
+        {/* Gráficos lado a lado com altura fixa */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg">
+            <div className="flex items-center justify-between mb-2">
+              <div>
+                <h2 className="font-semibold">Vendas Mensais</h2>
+                <p className="text-xs text-zinc-500">
+                  Comparativo dos últimos 6 meses
+                </p>
+              </div>
+            </div>
+            <div className="h-[calc(100%-60px)]">
+              <SalesChart data={salesData} />
             </div>
           </div>
-          <ActiveUsersChart data={usersData.map((item) => item.value)} />
+
+          <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg">
+            <div className="flex items-center justify-between mb-2">
+              <div>
+                <h2 className="font-semibold">Usuários Ativos</h2>
+                <p className="text-xs text-zinc-500">
+                  Crescimento mensal de usuários
+                </p>
+              </div>
+            </div>
+            <div className="h-[calc(100%-60px)]">
+              <ActiveUsersChart data={usersData.map((item) => item.value)} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
