@@ -29,13 +29,11 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 - ✅ Autenticação de usuários (Login/Logout)
 - ✅ Dashboard com gráficos e métricas
 - ✅ Gerenciamento de produtos
-- ✅ Sistema de temas (Claro/Escuro)
-- ✅ Layout responsivo
+- ✅ Gerenciamento de usuários
 - ✅ Proteção de rotas
 
 ### Futuras
 
-- 📋 Sistema de notificações em tempo real
 - 📊 Relatórios exportáveis (PDF, Excel)
 - 👥 Gerenciamento de permissões de usuários
 - 🔄 Sincronização offline
@@ -52,7 +50,6 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 - **Estilização**: Tailwind CSS
 - **Banco de Dados**: PostgreSQL
 - **ORM**: Prisma
-- **Autenticação**: Next-Auth
 - **Gráficos**: Recharts
 - **Ícones**: Lucide Icons
 - **Deploy**: Vercel
@@ -74,12 +71,22 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
   }
   ```
 
+- **Role**
+
+  ```prisma
+  enum Role {
+    ADMIN
+    USER
+  }
+  ```
+
 - **User**
   ```prisma
   model User {
       id        String   @id @default(cuid())
       name      String
       email     String   @unique
+      role      String   @default("user")
       createdAt DateTime @default(now())
       updatedAt DateTime @updatedAt
   }
@@ -141,32 +148,13 @@ psql -U seu_usuario nome_do_banco < backup.sql
 
 ## 🔐 Segurança do Banco de Dados
 
-- Todas as senhas são hasheadas usando bcrypt
-- Conexões são feitas através de SSL/TLS
-- Implementado rate limiting nas APIs
-- Validação de dados com Zod
-- Queries seguras através do Prisma ORM
-- Proteção contra SQL injection
-
-## 📊 Índices e Performance
-
-- Índices automáticos em chaves primárias e estrangeiras
-- Índices únicos em campos como email
-- Relacionamentos otimizados através do Prisma
-- Queries eficientes com select específico de campos
+- ✅ Validação de dados com Zod
+- ✅ Queries seguras através do Prisma ORM
 
 ## 🔐 Credenciais de Teste
 
 - **Usuário**: admin
 - **Senha**: admin123
-
-## 📱 Responsividade
-
-O sistema é totalmente responsivo e se adapta aos seguintes breakpoints:
-
-- Mobile: 360px+
-- Tablet: 768px+
-- Desktop: 1024px+
 
 ## 🤝 Contribuindo
 
@@ -179,12 +167,3 @@ O sistema é totalmente responsivo e se adapta aos seguintes breakpoints:
 ## 👨‍💻 Autor
 
 Seu Nome - [Márcia](https://www.linkedin.com/in/marcia-agostinho-developer/)
-
-## 🙏 Agradecimentos
-
-- [Next.js](https://nextjs.org)
-- [Vercel](https://vercel.com)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Prisma](https://prisma.io)
-
-⭐️ Se este projeto te ajudou, considere dar uma estrela!
