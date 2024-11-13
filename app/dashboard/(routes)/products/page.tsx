@@ -6,7 +6,6 @@ import { Plus, Pencil, Trash } from "lucide-react";
 import { Product } from "@/types/product";
 import { ProductModal } from "@/components/products/product-modal";
 import { ConfirmModal } from "@/components/ui/confirm-modal";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -70,8 +69,8 @@ export default function ProductsPage() {
         );
       }
 
-      await fetchProducts();
       setIsModalOpen(false);
+      await fetchProducts();
       toast.success(
         `Produto ${editingProduct ? "editado" : "criado"} com sucesso!`
       );

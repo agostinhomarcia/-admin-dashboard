@@ -75,7 +75,6 @@ export function ProductModal({
         createdAt: product?.createdAt || new Date().toISOString(),
       });
 
-      toast.success("Produto salvo com sucesso!");
       onClose();
     } catch (error) {
       toast.error("Erro ao salvar produto");
