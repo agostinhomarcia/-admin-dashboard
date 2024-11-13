@@ -50,32 +50,3 @@ export async function POST(request: Request) {
     );
   }
 }
-
-export async function PUT(request: Request) {
-  const body = await request.json();
-  const product = await prisma.product.findUnique({
-    where: {
-      id: body.id,
-    },
-  });
-
-  if (!product) {
-    return NextResponse.json(
-      { error: "Produto não encontrado" },
-      { status: 404 }
-    );
-  }
-
-  const updatedProduct = await prisma.product.update({
-    where: {
-      id: body.id,
-    },
-    data: {
-      name: body.name,
-      price: body.price,
-      stock: body.stock,
-    },
-  });
-
-  return NextResponse.json(updatedProduct);
-}

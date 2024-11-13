@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { MobileWarning } from "@/components/mobile-warning";
-import { Sidebar } from "@/components/layout/sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

@@ -50,8 +50,13 @@ export default function ProductsPage() {
 
   const handleSubmit = async (data: any) => {
     try {
-      const response = await fetch("/api/products", {
-        method: "POST",
+      const method = editingProduct ? "PUT" : "POST";
+      const url = editingProduct
+        ? `/api/products/${editingProduct.id}`
+        : "/api/products";
+
+      const response = await fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
         },
@@ -59,14 +64,19 @@ export default function ProductsPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao criar produto");
+        throw new Error(
+          `Erro ao ${editingProduct ? "editar" : "criar"} produto`
+        );
       }
 
       await fetchProducts();
       setIsModalOpen(false);
+      toast.success(
+        `Produto ${editingProduct ? "editado" : "criado"} com sucesso!`
+      );
     } catch (error) {
       console.error("Erro:", error);
-      toast.error("Erro ao criar produto");
+      toast.error(`Erro ao ${editingProduct ? "editar" : "criar"} produto`);
     }
   };
 
