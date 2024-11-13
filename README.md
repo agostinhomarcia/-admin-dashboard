@@ -24,7 +24,7 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 
 ## 🚀 Features
 
-### Implementadas
+### 📋 Implementadas
 
 - ✅ Autenticação de usuários (Login/Logout)
 - ✅ Dashboard com gráficos e métricas
