@@ -6,6 +6,7 @@ import { Plus, Pencil, Trash } from "lucide-react";
 import { Product } from "@/types/product";
 import { ProductModal } from "@/components/products/product-modal";
 import { ConfirmModal } from "@/components/ui/confirm-modal";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -108,7 +109,41 @@ export default function ProductsPage() {
   };
 
   if (isLoading) {
-    return <div>Carregando...</div>;
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <Skeleton className="h-8 w-[150px]" />
+          <Skeleton className="h-10 w-[140px]" />
+        </div>
+
+        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <div className="p-4">
+            <div className="flex items-center gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-4">
+              <Skeleton className="h-4 w-[200px]" />
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-4 w-[150px]" />
+            </div>
+
+            {[...Array(5)].map((_, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-4 py-4 border-b border-zinc-200 dark:border-zinc-800 animate-pulse"
+              >
+                <Skeleton className="h-4 w-[200px]" />
+                <Skeleton className="h-4 w-[100px]" />
+                <Skeleton className="h-4 w-[100px]" />
+                <Skeleton className="h-4 w-[150px]" />
+                <div className="ml-auto flex items-center gap-2">
+                  <Skeleton className="h-8 w-8 rounded-md" />
+                  <Skeleton className="h-8 w-8 rounded-md" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -148,7 +183,24 @@ export default function ProductsPage() {
                     currency: "BRL",
                   })}
                 </td>
-                <td className="p-4">{product.stock}</td>
+                <td className="p-4">
+                  <div className="flex items-center gap-2">
+                    <span>{product.stock}</span>
+                    {product.stock < 100 ? (
+                      <span className="px-2 py-1 text-xs bg-red-100 text-red-700 rounded-full">
+                        Baixo
+                      </span>
+                    ) : product.stock < 300 ? (
+                      <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full">
+                        Médio
+                      </span>
+                    ) : (
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                        Alto
+                      </span>
+                    )}
+                  </div>
+                </td>
                 <td className="p-4">
                   {new Date(product.createdAt).toLocaleDateString()}
                 </td>
