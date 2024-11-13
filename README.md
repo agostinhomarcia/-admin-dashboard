@@ -32,7 +32,7 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 - ✅ Gerenciamento de usuários
 - ✅ Proteção de rotas
 
-### Futuras
+### 💾 Futuras
 
 - 📊 Relatórios exportáveis (PDF, Excel)
 - 👥 Gerenciamento de permissões de usuários
