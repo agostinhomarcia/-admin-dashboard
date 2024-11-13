@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Product } from "@/types/product";
+import { toast } from "sonner";
 
 interface ProductModalProps {
   isOpen: boolean;
@@ -10,27 +11,61 @@ interface ProductModalProps {
   product?: Product;
 }
 
+const formatPrice = (value: string) => {
+  const numbers = value.replace(/\D/g, "");
+
+  const price = Number(numbers) / 100;
+
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(price);
+};
+
 export function ProductModal({
   isOpen,
   onClose,
   onSubmit,
   product,
 }: ProductModalProps) {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: product?.name || "",
-    price: product?.price || 0,
+    price: product?.price || "",
     stock: product?.stock || 0,
   });
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit({
-      id: product?.id || "",
-      ...formData,
-      createdAt: product?.createdAt || new Date().toISOString(),
-    });
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, "");
+    const formattedPrice = formatPrice(value);
+    setFormData({ ...formData, price: formattedPrice });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      const priceValue =
+        typeof formData.price === "string"
+          ? formData.price.replace(/\D/g, "")
+          : String(formData.price).replace(/\D/g, "");
+      const price = Number(priceValue) / 100;
+
+      await onSubmit({
+        id: product?.id || "",
+        ...formData,
+        price,
+        createdAt: product?.createdAt || new Date().toISOString(),
+      });
+
+      toast.success("Produto salvo com sucesso!");
+      onClose();
+    } catch (error) {
+      toast.error("Erro ao salvar produto");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,18 +87,14 @@ export function ProductModal({
               required
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">Preço</label>
+          <div className="space-y-2">
+            <label>Preço</label>
             <input
-              type="number"
+              type="text"
               value={formData.price}
-              onChange={(e) =>
-                setFormData({ ...formData, price: Number(e.target.value) })
-              }
+              onChange={handlePriceChange}
               className="w-full p-2 border rounded-md"
-              required
-              min="0"
-              step="0.01"
+              placeholder="R$ 0,00"
             />
           </div>
           <div>
@@ -89,9 +120,11 @@ export function ProductModal({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-zinc-900 text-zinc-50 rounded-md"
+              onClick={handleSubmit}
+              disabled={loading}
+              className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              Salvar
+              {loading ? "Salvando..." : "Salvar"}
             </button>
           </div>
         </form>
