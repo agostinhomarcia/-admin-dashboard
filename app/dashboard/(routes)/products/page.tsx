@@ -14,6 +14,9 @@ export default function ProductsPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<string | null>(null);
+  const [editingProduct, setEditingProduct] = useState<Product | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     fetchProducts();
@@ -42,6 +45,7 @@ export default function ProductsPage() {
   const handleCloseModal = () => {
     setSelectedProduct(undefined);
     setIsModalOpen(false);
+    setEditingProduct(undefined);
   };
 
   const handleSubmit = async (data: any) => {
@@ -86,6 +90,11 @@ export default function ProductsPage() {
     } catch {
       toast.error("Erro ao excluir produto");
     }
+  };
+
+  const handleEdit = (product: Product) => {
+    setEditingProduct(product);
+    setIsModalOpen(true);
   };
 
   if (isLoading) {
@@ -136,7 +145,7 @@ export default function ProductsPage() {
                 <td className="p-4">
                   <div className="flex items-center justify-end gap-2">
                     <button
-                      onClick={() => handleOpenModal(product)}
+                      onClick={() => handleEdit(product)}
                       className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md"
                     >
                       <Pencil className="h-4 w-4" />
@@ -159,7 +168,7 @@ export default function ProductsPage() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSubmit={handleSubmit}
-        product={selectedProduct}
+        product={editingProduct}
       />
 
       <ConfirmModal

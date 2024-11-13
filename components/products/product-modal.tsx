@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Product } from "@/types/product";
 import { toast } from "sonner";
 
 interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: Product) => void;
+  onSubmit: (data: any) => Promise<void>;
   product?: Product;
 }
 
@@ -30,10 +30,26 @@ export function ProductModal({
 }: ProductModalProps) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: product?.name || "",
-    price: product?.price || "",
-    stock: product?.stock || 0,
+    name: "",
+    price: "",
+    stock: "",
   });
+
+  useEffect(() => {
+    if (product) {
+      setFormData({
+        name: product.name,
+        price: formatPrice(String(product.price * 100)),
+        stock: String(product.stock),
+      });
+    } else {
+      setFormData({
+        name: "",
+        price: "",
+        stock: "",
+      });
+    }
+  }, [product, isOpen]);
 
   if (!isOpen) return null;
 
@@ -103,7 +119,7 @@ export function ProductModal({
               type="number"
               value={formData.stock}
               onChange={(e) =>
-                setFormData({ ...formData, stock: Number(e.target.value) })
+                setFormData({ ...formData, stock: e.target.value })
               }
               className="w-full p-2 border rounded-md"
               required
