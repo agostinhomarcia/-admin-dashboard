@@ -3,6 +3,7 @@
 import { Sidebar } from "@/components/layout/sidebar";
 import { Menu } from "lucide-react";
 import { useState } from "react";
+import { Toaster } from "sonner";
 
 export default function DashboardLayout({
   children,
@@ -25,6 +26,7 @@ export default function DashboardLayout({
           </button>
         </header>
         {children}
+        <Toaster richColors position="top-center" closeButton expand={true} />
       </main>
     </div>
   );
