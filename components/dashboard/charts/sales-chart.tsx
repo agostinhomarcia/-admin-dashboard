@@ -24,13 +24,17 @@ ChartJS.register(
   Filler
 );
 
-export function SalesChart() {
-  const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+interface SalesChartProps {
+  data: { date: string; value: number }[];
+}
+
+export function SalesChart({ data }: SalesChartProps) {
+  const chartData = {
+    labels: data.map((item) => item.date),
     datasets: [
       {
         label: "Vendas",
-        data: [65, 59, 80, 81, 56, 55],
+        data: data.map((item) => item.value),
         borderColor: "rgb(99, 102, 241)",
         backgroundColor: "rgba(99, 102, 241, 0.5)",
         tension: 0.3,
@@ -43,7 +47,7 @@ export function SalesChart() {
     <div className="p-6 bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800">
       <h2 className="text-lg font-semibold mb-4">Vendas Mensais</h2>
       <Line
-        data={data}
+        data={chartData}
         options={{
           responsive: true,
           plugins: {
