@@ -79,6 +79,8 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 - **Estilização**: Tailwind CSS
 - **Banco de Dados**: PostgreSQL
 - **ORM**: Prisma
+- **React**: React Icons
+- **Framer Motion**: Framer Motion
 - **Gráficos**: Recharts
 - **Ícones**: Lucide Icons
 - **Deploy**: Vercel
