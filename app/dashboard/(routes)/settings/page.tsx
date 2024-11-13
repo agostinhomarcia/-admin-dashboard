@@ -61,16 +61,16 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4 md:p-6">
       <div>
-        <h1 className="text-3xl font-bold">Configurações</h1>
-        <p className="text-zinc-500 dark:text-zinc-400">
+        <h1 className="text-2xl md:text-3xl font-bold">Configurações</h1>
+        <p className="text-sm md:text-base text-zinc-500 dark:text-zinc-400">
           Gerencie as configurações do sistema
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+      <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2">
+        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 md:p-6">
           <div className="flex items-center gap-2 mb-4">
             <Settings className="h-5 w-5 text-zinc-500" />
             <h2 className="text-xl font-semibold">Configurações Gerais</h2>
@@ -116,7 +116,7 @@ export default function SettingsPage() {
           </form>
         </div>
 
-        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 md:p-6">
           <div className="flex items-center gap-2 mb-4">
             <Bell className="h-5 w-5 text-zinc-500" />
             <h2 className="text-xl font-semibold">Notificações</h2>
@@ -150,8 +150,8 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+      <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2">
+        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 md:p-6">
           <div className="flex items-center gap-2 mb-4">
             <Settings className="h-5 w-5 text-zinc-500" />
             <h2 className="text-xl font-semibold">Backup e Restauração</h2>
@@ -173,15 +173,15 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <div className="flex justify-end space-x-4">
+      <div className="flex flex-col sm:flex-row justify-end gap-3 sm:space-x-4">
         <button
-          className="px-4 py-2 border rounded-md hover:bg-gray-100 dark:hover:bg-zinc-800"
+          className="w-full sm:w-auto px-4 py-2 border rounded-md hover:bg-gray-100 dark:hover:bg-zinc-800"
           onClick={() => toast.error("Alterações canceladas")}
         >
           Cancelar
         </button>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
+          className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
           onClick={handleSave}
           disabled={loading || !formData.companyName || !formData.email}
         >

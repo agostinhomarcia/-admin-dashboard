@@ -108,122 +108,146 @@ export default function ProductsPage() {
     setIsModalOpen(true);
   };
 
-  if (isLoading) {
-    return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-8 w-[150px]" />
-          <Skeleton className="h-10 w-[140px]" />
-        </div>
-
-        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800">
-          <div className="p-4">
-            <div className="flex items-center gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-4">
-              <Skeleton className="h-4 w-[200px]" />
-              <Skeleton className="h-4 w-[100px]" />
-              <Skeleton className="h-4 w-[100px]" />
-              <Skeleton className="h-4 w-[150px]" />
-            </div>
-
-            {[...Array(5)].map((_, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-4 py-4 border-b border-zinc-200 dark:border-zinc-800 animate-pulse"
-              >
-                <Skeleton className="h-4 w-[200px]" />
-                <Skeleton className="h-4 w-[100px]" />
-                <Skeleton className="h-4 w-[100px]" />
-                <Skeleton className="h-4 w-[150px]" />
-                <div className="ml-auto flex items-center gap-2">
-                  <Skeleton className="h-8 w-8 rounded-md" />
-                  <Skeleton className="h-8 w-8 rounded-md" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Produtos</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">Produtos</h1>
         <button
           onClick={() => handleOpenModal()}
-          className="flex items-center gap-2 px-4 py-2 bg-zinc-900 text-zinc-50 rounded-md hover:bg-zinc-800"
+          className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-zinc-900 text-zinc-50 rounded-md hover:bg-zinc-800"
         >
           <Plus className="h-4 w-4" />
-          Novo Produto
+          <span className="hidden sm:inline">Novo Produto</span>
         </button>
       </div>
 
       <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-zinc-200 dark:border-zinc-800">
-              <th className="text-left p-4 font-medium">Nome</th>
-              <th className="text-left p-4 font-medium">Preço</th>
-              <th className="text-left p-4 font-medium">Estoque</th>
-              <th className="text-left p-4 font-medium">Data de Criação</th>
-              <th className="text-right p-4 font-medium">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr
-                key={product.id}
-                className="border-b border-zinc-200 dark:border-zinc-800"
-              >
-                <td className="p-4">{product.name}</td>
-                <td className="p-4">
-                  {product.price.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </td>
-                <td className="p-4">
-                  <div className="flex items-center gap-2">
-                    <span>{product.stock}</span>
-                    {product.stock < 100 ? (
-                      <span className="px-2 py-1 text-xs bg-red-100 text-red-700 rounded-full">
-                        Baixo
-                      </span>
-                    ) : product.stock < 300 ? (
-                      <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full">
-                        Médio
-                      </span>
-                    ) : (
-                      <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
-                        Alto
-                      </span>
-                    )}
-                  </div>
-                </td>
-                <td className="p-4">
-                  {new Date(product.createdAt).toLocaleDateString()}
-                </td>
-                <td className="p-4">
-                  <div className="flex items-center justify-end gap-2">
-                    <button
-                      onClick={() => handleEdit(product)}
-                      className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md"
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteClick(product.id)}
-                      className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md text-red-500"
-                    >
-                      <Trash className="h-4 w-4" />
-                    </button>
-                  </div>
-                </td>
+        {/* Desktop Table View */}
+        <div className="hidden md:block">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                <th className="text-left p-4 font-medium">Nome</th>
+                <th className="text-left p-4 font-medium">Preço</th>
+                <th className="text-left p-4 font-medium">Estoque</th>
+                <th className="text-left p-4 font-medium">Data de Criação</th>
+                <th className="text-right p-4 font-medium">Ações</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr
+                  key={product.id}
+                  className="border-b border-zinc-200 dark:border-zinc-800"
+                >
+                  <td className="p-4">{product.name}</td>
+                  <td className="p-4">
+                    {product.price.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </td>
+                  <td className="p-4">
+                    <div className="flex items-center gap-2">
+                      <span>{product.stock}</span>
+                      {product.stock < 100 ? (
+                        <span className="px-2 py-1 text-xs bg-red-100 text-red-700 rounded-full">
+                          Baixo
+                        </span>
+                      ) : product.stock < 300 ? (
+                        <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full">
+                          Médio
+                        </span>
+                      ) : (
+                        <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                          Alto
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    {new Date(product.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="p-4">
+                    <div className="flex items-center justify-end gap-2">
+                      <button
+                        onClick={() => handleEdit(product)}
+                        className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md"
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteClick(product.id)}
+                        className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md text-red-500"
+                      >
+                        <Trash className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile Card View */}
+        <div className="md:hidden divide-y divide-zinc-200 dark:divide-zinc-800">
+          {products.map((product) => (
+            <div key={product.id} className="p-4 space-y-3">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-medium">{product.name}</h3>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                    {product.price.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleEdit(product)}
+                    className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md"
+                  >
+                    <Pencil className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteClick(product.id)}
+                    className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md text-red-500"
+                  >
+                    <Trash className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm">
+                <span className="text-zinc-500 dark:text-zinc-400">
+                  Estoque:
+                </span>
+                <div className="flex items-center gap-2">
+                  <span>{product.stock}</span>
+                  {product.stock < 100 ? (
+                    <span className="px-2 py-1 text-xs bg-red-100 text-red-700 rounded-full">
+                      Baixo
+                    </span>
+                  ) : product.stock < 300 ? (
+                    <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full">
+                      Médio
+                    </span>
+                  ) : (
+                    <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                      Alto
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="text-sm text-zinc-500 dark:text-zinc-400">
+                Criado em: {new Date(product.createdAt).toLocaleDateString()}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <ProductModal

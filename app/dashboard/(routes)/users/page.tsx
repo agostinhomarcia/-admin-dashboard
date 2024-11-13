@@ -132,63 +132,110 @@ export default function UsersPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Usuários</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">Usuários</h1>
         <button
           onClick={() => handleOpenModal()}
-          className="flex items-center gap-2 px-4 py-2 bg-zinc-900 text-zinc-50 rounded-md hover:bg-zinc-800"
+          className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-zinc-900 text-zinc-50 rounded-md hover:bg-zinc-800"
         >
           <Plus className="h-4 w-4" />
-          Novo Usuário
+          <span className="hidden sm:inline">Novo Usuário</span>
         </button>
       </div>
 
       <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-zinc-200 dark:border-zinc-800">
-              <th className="text-left p-4 font-medium">Nome</th>
-              <th className="text-left p-4 font-medium">Email</th>
-              <th className="text-left p-4 font-medium">Função</th>
-              <th className="text-left p-4 font-medium">Data de Criação</th>
-              <th className="text-right p-4 font-medium">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr
-                key={user.id}
-                className="border-b border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
-              >
-                <td className="p-4">{user.name}</td>
-                <td className="p-4">{user.email}</td>
-                <td className="p-4">{user.role}</td>
-                <td className="p-4">
-                  {new Date(user.createdAt).toLocaleDateString()}
-                </td>
-                <td className="p-4">
-                  <div className="flex items-center justify-end gap-2">
-                    <button
-                      onClick={() => handleOpenModal(user)}
-                      className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors group"
-                      title="Editar"
-                    >
-                      <Pencil className="h-4 w-4 text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-50" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteClick(user.id)}
-                      className="p-2 hover:bg-red-50 dark:hover:bg-red-950 rounded-md transition-colors group"
-                      title="Excluir"
-                    >
-                      <Trash className="h-4 w-4 text-red-500 group-hover:text-red-600" />
-                    </button>
-                  </div>
-                </td>
+        <div className="hidden md:block">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                <th className="text-left p-4 font-medium">Nome</th>
+                <th className="text-left p-4 font-medium">Email</th>
+                <th className="text-left p-4 font-medium">Função</th>
+                <th className="text-left p-4 font-medium">Data de Criação</th>
+                <th className="text-right p-4 font-medium">Ações</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr
+                  key={user.id}
+                  className="border-b border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+                >
+                  <td className="p-4">{user.name}</td>
+                  <td className="p-4">{user.email}</td>
+                  <td className="p-4">{user.role}</td>
+                  <td className="p-4">
+                    {new Date(user.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="p-4">
+                    <div className="flex items-center justify-end gap-2">
+                      <button
+                        onClick={() => handleOpenModal(user)}
+                        className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors group"
+                        title="Editar"
+                      >
+                        <Pencil className="h-4 w-4 text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-50" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteClick(user.id)}
+                        className="p-2 hover:bg-red-50 dark:hover:bg-red-950 rounded-md transition-colors group"
+                        title="Excluir"
+                      >
+                        <Trash className="h-4 w-4 text-red-500 group-hover:text-red-600" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="md:hidden divide-y divide-zinc-200 dark:divide-zinc-800">
+          {users.map((user) => (
+            <div key={user.id} className="p-4 space-y-2">
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="font-medium">{user.name}</div>
+                  <div className="text-sm text-zinc-500 dark:text-zinc-400">
+                    {user.email}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleOpenModal(user)}
+                    className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors group"
+                    title="Editar"
+                  >
+                    <Pencil className="h-4 w-4 text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-50" />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteClick(user.id)}
+                    className="p-2 hover:bg-red-50 dark:hover:bg-red-950 rounded-md transition-colors group"
+                    title="Excluir"
+                  >
+                    <Trash className="h-4 w-4 text-red-500 group-hover:text-red-600" />
+                  </button>
+                </div>
+              </div>
+              <div className="text-sm grid grid-cols-2 gap-2">
+                <div>
+                  <span className="text-zinc-500 dark:text-zinc-400">
+                    Função:{" "}
+                  </span>
+                  {user.role}
+                </div>
+                <div>
+                  <span className="text-zinc-500 dark:text-zinc-400">
+                    Criado em:{" "}
+                  </span>
+                  {new Date(user.createdAt).toLocaleDateString()}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <UserModal

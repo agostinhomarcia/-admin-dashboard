@@ -14,6 +14,11 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
+interface SidebarProps {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}
+
 const navigation = [
   { name: "📊 Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "👥 Usuários", href: "/dashboard/users", icon: Users },
@@ -21,9 +26,8 @@ const navigation = [
   { name: "⚙️ Configurações", href: "/dashboard/settings", icon: Settings },
 ];
 
-export function Sidebar() {
+export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const pathname = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const router = useRouter();
 
@@ -34,33 +38,19 @@ export function Sidebar() {
 
   return (
     <>
-      <button
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="fixed top-4 left-4 z-50 p-2 rounded-md bg-zinc-100 dark:bg-zinc-800 lg:hidden"
-      >
-        {isMobileMenuOpen ? (
-          <X className="h-6 w-6" />
-        ) : (
-          <Menu className="h-6 w-6" />
-        )}
-      </button>
-
-      {/* Sidebar */}
       <aside
         className={cn(
           "fixed top-0 left-0 h-full w-[280px] bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 z-40 transition-all duration-300 ease-in-out",
           "lg:translate-x-0 lg:static lg:h-screen",
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex flex-col h-full p-6">
-          {/* Logo/Título */}
           <div className="flex items-center gap-2 font-semibold text-xl mb-8">
             <LayoutDashboard className="h-6 w-6" />
             <span>Dashboard</span>
           </div>
 
-          {/* Navegação */}
           <nav className="flex-1 space-y-1">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
@@ -84,7 +74,6 @@ export function Sidebar() {
             })}
           </nav>
 
-          {/* Botão Sair */}
           <div className="mt-auto pt-4">
             <button
               onClick={handleLogout}
@@ -98,10 +87,10 @@ export function Sidebar() {
       </aside>
 
       {/* Overlay para mobile */}
-      {isMobileMenuOpen && (
+      {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-30 lg:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={() => setIsOpen(false)}
         />
       )}
     </>

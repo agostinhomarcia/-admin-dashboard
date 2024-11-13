@@ -40,8 +40,8 @@ export default function Dashboard() {
 
   return (
     <div className="h-[calc(100vh-80px)] p-4 flex flex-col gap-4">
-      {/* Header - Mais compacto */}
-      <div className="flex items-center justify-between">
+      {/* Header - Mais compacto e responsivo */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p className="text-sm text-zinc-500">
@@ -71,10 +71,10 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Grid principal - Usando grid-rows para controle vertical */}
+      {/* Grid principal - Responsivo */}
       <div className="flex-1 grid grid-rows-[auto_1fr] gap-4">
-        {/* Cards em uma única linha */}
-        <div className="grid grid-cols-4 gap-4">
+        {/* Cards em grid responsivo */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg">
             <span className="text-sm text-zinc-500">Vendas Hoje</span>
             <h3 className="text-xl font-bold">R$ 12.589,00</h3>
@@ -83,8 +83,8 @@ export default function Dashboard() {
           {/* ... outros cards ... */}
         </div>
 
-        {/* Gráficos lado a lado com altura fixa */}
-        <div className="grid grid-cols-2 gap-4">
+        {/* Gráficos - Responsivo */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg">
             <div className="flex items-center justify-between mb-2">
               <div>
@@ -94,7 +94,7 @@ export default function Dashboard() {
                 </p>
               </div>
             </div>
-            <div className="h-[calc(100%-60px)]">
+            <div className="h-[300px] lg:h-[calc(100%-60px)]">
               <SalesChart data={salesData} />
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function Dashboard() {
                 </p>
               </div>
             </div>
-            <div className="h-[calc(100%-60px)]">
+            <div className="h-[300px] lg:h-[calc(100%-60px)]">
               <ActiveUsersChart data={usersData.map((item) => item.value)} />
             </div>
           </div>

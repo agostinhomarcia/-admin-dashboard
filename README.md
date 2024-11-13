@@ -196,3 +196,38 @@ psql -U seu_usuario nome_do_banco < backup.sql
 ## 👨‍💻 Autor
 
 Seu Nome - [Márcia](https://www.linkedin.com/in/marcia-agostinho-developer/)
+
+## 📱 Responsividade
+
+O sistema foi completamente adaptado para oferecer uma experiência otimizada em diferentes dispositivos:
+
+### 📱 Mobile (< 768px)
+
+- Menu lateral colapsável
+- Cards no lugar de tabelas para melhor visualização de dados
+- Layout otimizado para toque
+- Botões e elementos de interação adaptados para telas menores
+- Formulários responsivos
+
+### 💻 Tablet (768px - 1024px)
+
+- Layout híbrido adaptativo
+- Visualização de tabelas otimizada
+- Sidebar com toggle automático
+- Interface ajustada para diferentes orientações de tela
+
+### 🖥️ Desktop (> 1024px)
+
+- Layout completo com sidebar fixa
+- Tabelas com todas as funcionalidades
+- Aproveitamento máximo do espaço da tela
+- Múltiplas colunas de dados
+
+### 🎯 Principais Características Responsivas
+
+- ✅ Layout fluido e adaptativo
+- ✅ Imagens e mídia responsivas
+- ✅ Tipografia responsiva
+- ✅ Navegação adaptada para cada dispositivo
+- ✅ Componentes otimizados para touch e mouse
+- ✅ Performance otimizada em todos os dispositivos
