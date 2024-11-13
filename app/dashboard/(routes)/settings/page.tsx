@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Settings, Bell } from "lucide-react";
+import { cn, formatDate } from "@/lib/utils";
+import { isValidEmail } from "@/lib/utils/validation";
 
 export default function SettingsPage() {
   const [loading, setLoading] = useState(false);
@@ -11,28 +14,14 @@ export default function SettingsPage() {
     companyName: "",
     email: "",
   });
+  const [errors, setErrors] = useState({
+    companyName: "",
+    email: "",
+  });
 
-  // Função para validar email
-  const isValidEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  // Função para formatar a data
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(date);
-  };
-
-  // Função para lidar com o backup
   const handleBackup = async () => {
     setBackupLoading(true);
     try {
-      // Simular processo de backup
       await new Promise((resolve) => setTimeout(resolve, 2000));
       const currentDate = new Date();
       setLastBackupDate(formatDate(currentDate));
@@ -44,29 +33,31 @@ export default function SettingsPage() {
     }
   };
 
-  // Função para salvar as alterações
   const handleSave = () => {
     if (!formData.companyName.trim()) {
       toast.error("Nome da empresa é obrigatório");
       return;
     }
 
-    if (!formData.email.trim()) {
-      toast.error("Email é obrigatório");
-      return;
-    }
-
-    if (!isValidEmail(formData.email)) {
+    if (!formData.email.trim() || !isValidEmail(formData.email)) {
       toast.error("Email inválido");
       return;
     }
 
     setLoading(true);
-    // Simular salvamento
     setTimeout(() => {
       toast.success("Configurações salvas com sucesso!");
+      setFormData({
+        companyName: "",
+        email: "",
+      });
       setLoading(false);
     }, 1000);
+  };
+
+  const handleChange = (field: keyof typeof formData, value: string) => {
+    setFormData({ ...formData, [field]: value });
+    setErrors({ ...errors, [field]: "" });
   };
 
   return (
@@ -78,23 +69,35 @@ export default function SettingsPage() {
         </p>
       </div>
 
-      <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800">
-        <div className="p-6 border-b border-zinc-200 dark:border-zinc-800">
-          <h2 className="text-xl font-semibold mb-4">Configurações Gerais</h2>
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Settings className="h-5 w-5 text-zinc-500" />
+            <h2 className="text-xl font-semibold">Configurações Gerais</h2>
+          </div>
           <form className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm font-medium mb-1">
                 Nome da Empresa
+                <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
-                className="w-full p-2 border rounded-md"
+                className={cn(
+                  "w-full px-3 py-2 rounded-md border transition-colors",
+                  errors.companyName
+                    ? "border-red-500 focus:ring-red-200"
+                    : "border-zinc-200 dark:border-zinc-800 focus:ring-blue-200"
+                )}
                 placeholder="Nome da sua empresa"
                 value={formData.companyName}
-                onChange={(e) =>
-                  setFormData({ ...formData, companyName: e.target.value })
-                }
+                onChange={(e) => handleChange("companyName", e.target.value)}
               />
+              {errors.companyName && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.companyName}
+                </p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">
@@ -113,8 +116,11 @@ export default function SettingsPage() {
           </form>
         </div>
 
-        <div className="p-6 border-b border-zinc-200 dark:border-zinc-800">
-          <h2 className="text-xl font-semibold mb-4">Notificações</h2>
+        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Bell className="h-5 w-5 text-zinc-500" />
+            <h2 className="text-xl font-semibold">Notificações</h2>
+          </div>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -142,9 +148,14 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="p-6 border-b border-zinc-200 dark:border-zinc-800">
-          <h2 className="text-xl font-semibold mb-4">Backup e Restauração</h2>
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="bg-white dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Settings className="h-5 w-5 text-zinc-500" />
+            <h2 className="text-xl font-semibold">Backup e Restauração</h2>
+          </div>
           <div className="space-y-4">
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:opacity-50"
