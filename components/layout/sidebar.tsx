@@ -34,7 +34,6 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Botão do menu mobile */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         className="fixed top-4 left-4 z-50 p-2 rounded-md bg-zinc-100 dark:bg-zinc-800 lg:hidden"

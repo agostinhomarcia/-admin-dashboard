@@ -1,7 +1,6 @@
 "use client";
 
 import { Sidebar } from "@/components/layout/sidebar";
-import { MobileWarning } from "@/components/mobile-warning";
 
 export default function DashboardLayout({
   children,
@@ -9,14 +8,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <MobileWarning />
-      <div className="flex min-h-screen lg:blur-none blur-sm">
-        <Sidebar />
-        <main className="flex-1 p-6 lg:p-8 pt-20 lg:pt-8 min-h-screen w-full">
-          {children}
-        </main>
-      </div>
-    </>
+    <div className="h-screen flex dark:bg-zinc-900">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto">{children}</main>
+    </div>
   );
 }
