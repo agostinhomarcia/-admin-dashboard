@@ -6,33 +6,33 @@ Um sistema de gestão empresarial moderno construído com Next.js 14, oferecendo
 
 ## 📸 Demonstração do Projeto
 
-### Login
+### Login/Dashboard
 
-![Login](./public/images/dasb-login.gif)
+![Tema](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXg3NTd6enY0a2Q4cjU1bXNyd29lMjM5dG90bXc4Ynhta25qOGZ0YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/eYePax7MsSAiUt8tkn/giphy.gif)
 
 ### Gerenciamento de Usuários
 
-![Usuários](./public/gifs/users-crud.gif)
+![Usuários](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmZqcWV3dGp6ajBwbGNzOHQ5Nm4zM2FrbjcxOWQ3anpwMmU5YjZsOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TXWdLSfRDS2rKTPDAI/giphy.gif)
 _CRUD completo de usuários com confirmação de exclusão_
 
 ### Gerenciamento de Produtos
 
-![Produtos](./public/gifs/products-crud.gif)
+![Produtos](https://imgur.com/seu-link-aqui.gif)
 _Cadastro e gerenciamento de produtos com validações_
 
 ### Layout Responsivo
 
-![Responsivo](./public/gifs/responsive.gif)
+![Responsivo](https://imgur.com/seu-link-aqui.gif)
 _Interface adaptável para diferentes tamanhos de tela_
 
 ### Dashboard Interativo
 
-![Dashboard](./public/gifs/dashboard.gif)
+![Dashboard](https://imgur.com/seu-link-aqui.gif)
 _Visualização de dados com gráficos interativos_
 
 ### Sistema de Navegação
 
-![Navegação](./public/gifs/navigation.gif)
+![Navegação](https://imgur.com/seu-link-aqui.gif)
 _Menu lateral colapsável e navegação intuitiva_
 
 ## 🚀 Features
